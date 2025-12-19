@@ -1,21 +1,28 @@
+#include <cstdio>
 #include <iostream>
 #include <map>
 #include <ranges>
-#include <sstream>
-#include <string>
 #include <vector>
 
 using count_map = std::map<int, int>;
 
 static inline count_map read_counts() {
-	std::string line;
 	count_map counts;
+	int ch;
+	int number { 0 };
+	bool number_parsed { false };
 
-	while (std::getline(std::cin, line)) {
-		std::istringstream in { line };
-		int count;
-		in >> count;
-		++counts[count];
+	while ((ch = std::cin.get()) != EOF) {
+		if (! number_parsed) {
+			if (ch >= '0' && ch <= '9') {
+				number = number * 10 + (ch - '0');
+			} else {
+				++counts[number];
+				number = 0;
+				number_parsed = true;
+			}
+		}
+		if (ch == '\n') { number_parsed = false; }
 	}
 
 	return counts;
