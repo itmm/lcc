@@ -26,7 +26,7 @@ using reverse_map = std::map<int, std::vector<int>>;
 static inline reverse_map reverse_counts(const count_map& counts) {
 	reverse_map reverse;
 
-	for (auto entry : counts) {
+	for (const auto& entry : counts) {
 		reverse[entry.second].push_back(entry.first);
 	}
 
@@ -37,8 +37,8 @@ int main() {
 	count_map counts { read_counts() };
 	reverse_map reverse { reverse_counts(counts) };
 
-	for (auto entry : reverse | std::ranges::views::reverse) {
-		for (auto item : entry.second) {
+	for (const auto& entry : reverse | std::ranges::views::reverse) {
+		for (int item : entry.second) {
 			std::cout << item << '\t' << entry.first << '\n';
 		}
 	}
