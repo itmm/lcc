@@ -6,6 +6,9 @@ EXECUTABLES=$(basename $(wildcard *.cpp))
 
 all: $(EXECUTABLES)
 
+num_hist.cpp: parser.h
+	touch $@
+
 clean:
 	rm -f $(EXECUTABLES)
 
