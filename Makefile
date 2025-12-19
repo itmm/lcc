@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-CXXFLAGS += -Wall -pedantic -Werror
+CXXFLAGS += -std=c++20 -Wall -pedantic -Werror
 
 EXECUTABLES=$(basename $(wildcard *.cpp))
 

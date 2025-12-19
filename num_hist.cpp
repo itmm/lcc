@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <ranges>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -36,7 +37,7 @@ int main() {
 	count_map counts { read_counts() };
 	reverse_map reverse { reverse_counts(counts) };
 
-	for (auto entry : reverse) {
+	for (auto entry : reverse | std::ranges::views::reverse) {
 		for (auto item : entry.second) {
 			std::cout << item << '\t' << entry.first << '\n';
 		}
