@@ -23,23 +23,31 @@ static inline size_t inc(size_t cur) {
 	std::exit(10);
 }
 
+static int ch;
+
+static inline size_t read_number() {
+	size_t number { 0 };
+	if (ch < '0' || ch > '9') {
+		std::cerr << "line does not start with number\n";
+		std::exit(10);
+	}
+	for (; ch >= '0' && ch <= '9'; ch = std::cin.get()) {
+		number = add_digit(number, ch - '0');
+	}
+	return number;
+}
+
 static inline count_map read_counts() {
 	count_map counts;
-	int ch;
-	size_t number { 0 };
-	bool number_parsed { false };
+	ch = std::cin.get();
 
-	while ((ch = std::cin.get()) != EOF) {
-		if (! number_parsed) {
-			if (ch >= '0' && ch <= '9') {
-				number = add_digit(number, ch - '0');
-			} else {
-				counts[number] = inc(counts[number]);
-				number = 0;
-				number_parsed = true;
-			}
+	for (;;) {
+		if (ch == EOF) { break; }
+		size_t number { read_number() };
+		counts[number] = inc(counts[number]);
+		for (; ch != EOF; ch = std::cin.get()) {
+			if (ch == '\n') { ch = std::cin.get(); break; }
 		}
-		if (ch == '\n') { number_parsed = false; }
 	}
 
 	return counts;
